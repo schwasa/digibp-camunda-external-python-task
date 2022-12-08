@@ -1,5 +1,4 @@
-import httpimport
-with httpimport.github_repo('DigiBP', 'digibp-camunda-external-python-task', 'cam'): import cam
+import cam
 
 class CheckDocument:
     def __init__(self):
