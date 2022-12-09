@@ -1,5 +1,5 @@
 import cam
-import random
+#import random
 
 
 class SurpriseMenuClient:
@@ -14,12 +14,17 @@ class SurpriseMenuClient:
         except:
             vegetarian_guests = False
 
+        try:
+            doc_url = response[1]['variables']['doc_url']['value']
+        except:
+            doc_url = False
+            
         if vegetarian_guests:
-            menu = random.choice(["pizza", "pasta", "verdura"])
+            score = 0.6
         else:
-            menu = random.choice(["pizza", "pasta", "carne", "verdura"])
+            score = 0.1
 
-        variables = {"menu": menu}
+        variables = {"score": score}
         self.worker.complete(taskid, **variables)
 
 
