@@ -25,6 +25,8 @@ class SurpriseMenuClient:
          else:
             score = 0.01
         
+	input_file = docx2txt.process("Benchmark.docx")
+
         if swissmedic_id in input_file:
 		    swissmedic_id = swissmedic_id
 	    else:
