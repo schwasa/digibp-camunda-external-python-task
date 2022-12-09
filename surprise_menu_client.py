@@ -1,6 +1,7 @@
 import cam
-#import random
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import docx2txt
 
 class SurpriseMenuClient:
     def __init__(self):
@@ -10,21 +11,26 @@ class SurpriseMenuClient:
 
     def get_surprise_menu_callback(self, taskid, response):
         try:
-            vegetarian_guests = response[0]['variables']['vegetarian']['value']
-        except:
-            vegetarian_guests = False
-
-        try:
-            doc_url = response[1]['variables']['doc_url']['value']
+            duc_url = response[0]['variables']['doc_url']['value']
         except:
             doc_url = False
-            
-        if vegetarian_guests:
-            score = 0.6
-        else:
-            score = 0.1
 
-        variables = {"score": score}
+        try:
+            swissmedic_id = response[1]['variables']['swissmedic_id']['value']
+        except:
+            swissmedic_id = False
+        
+        if doc_url:
+            score = 0.6
+         else:
+            score = 0.01
+        
+        if swissmedic_id in input_file:
+		    swissmedic_id = swissmedic_id
+	    else:
+		    swissmedic_id = "Error: Swissmedic ID is not in accordance with Approved Drug Information"
+
+        variables = {"score": score, "swissmedic_id": swissmedic_id}
         self.worker.complete(taskid, **variables)
 
 
